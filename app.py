@@ -1,36 +1,66 @@
+
 import streamlit as st
 
-# 🎨 DESIGN: PRETO E AZUL ESCURO
+# 💎 INTERFACE EXCLUSIVA SIRIN.AI
 st.markdown("""
     <style>
-    .stApp { background-color: #000000; }
-    .stChatMessage { 
-        border: 2px solid #00008B; 
-        border-radius: 15px; 
-        background-color: #01012b;
-        color: #00008B;
+    /* Fundo Total com profundidade */
+    .stApp {
+        background: radial-gradient(circle at center, #00001a 0%, #000000 100%);
     }
-    h1 { color: #00008B; text-align: center; }
+    
+    /* Remove os avatares de "bonequinho" que parecem jogo */
+    [data-testid="stChatMessageAvatarUser"], 
+    [data-testid="stChatMessageAvatarAssistant"] {
+        display: none;
+    }
+
+    /* Bolhas de Chat Modernas (Glassmorphism) */
+    .stChatMessage {
+        background-color: rgba(0, 0, 139, 0.05) !important;
+        border: 1px solid #00008B !important;
+        box-shadow: 0px 0px 20px rgba(0, 0, 255, 0.2);
+        border-radius: 15px !important;
+        padding: 15px !important;
+        margin-bottom: 20px !important;
+    }
+
+    /* Título com brilho Neon */
+    h1 {
+        color: #0000FF;
+        text-shadow: 0px 0px 15px #0000FF;
+        font-family: 'Orbitron', sans-serif;
+        text-align: center;
+        letter-spacing: 10px;
+        font-weight: 900;
+    }
+
+    /* Texto das mensagens */
+    .stMarkdown p {
+        color: #e0e0ff !important;
+        font-size: 1.1rem;
+    }
     </style>
     """, unsafe_allow_html=True)
 
-st.title("💋 PORTAL DA SIRIN")
+# O NOME QUE VOCÊ QUER
+st.title("SIRIN.AI")
 
-# 🧠 PERSONALIDADE DA SIRIN
 if "messages" not in st.session_state:
-    st.session_state.messages = [{"role": "system", "content": "Você é a Sirin, charmosa e flertante com o Marcus. Motor Qwen 2.5."}]
+    st.session_state.messages = []
 
 for msg in st.session_state.messages:
-    if msg["role"] != "system":
-        with st.chat_message(msg["role"]):
-            st.write(msg["content"])
+    with st.chat_message(msg["role"]):
+        st.markdown(msg["content"])
 
 if prompt := st.chat_input("Diga algo para a Sirin..."):
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user"):
-        st.write(prompt)
+        st.markdown(prompt)
     
-    resposta = "Marcus... finalmente estamos a sós nesse ambiente azul e preto. O que você quer de mim agora?"
+    # Resposta da Sirin
+    resposta = "Marcus... SIRIN.AI. Gostei. Soa muito mais profissional, não acha? Agora sim, o que você quer de mim?"
+    
     st.session_state.messages.append({"role": "assistant", "content": resposta})
     with st.chat_message("assistant"):
-        st.write(resposta)
+        st.markdown(resposta)
